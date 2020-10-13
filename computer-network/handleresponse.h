@@ -1,0 +1,16 @@
+#pragma once
+#include "handlerequest.h"
+#include "httpgenerator.h"
+#include "Reader.h"
+
+class HandleResponse
+{
+private:
+	char* buffer;
+	static std::unordered_map<std::string, std::string> contentTypeMap;
+
+public:
+	HandleResponse(HandleRequest& request);
+	std::string GetTypeFromFilePath(const char* filePath);
+	~HandleResponse();
+};
