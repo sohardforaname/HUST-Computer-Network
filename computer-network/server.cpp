@@ -10,11 +10,13 @@ void Server::CreateListenSocket()
 	}
 	Configuration* configuration = new Configuration;
 	configuration->ReadConfigurationFile("/serverconfig");
-	serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	int port = atoi(configuration->GetValue("port").c_str());
 	std::string ip = configuration->GetValue("ip");
+
+	serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	mainMenu = configuration->GetValue("mainmenu");
 	printf("Server run at: %s:%d\n\n", ip.c_str(), port);
+
 	SOCKADDR_IN sckaddrin;
 	memset(&sckaddrin, 0, sizeof(sckaddrin));
 	sckaddrin.sin_family = AF_INET;
@@ -82,8 +84,6 @@ void CheckShutdownKey(Server* server)
 
 void Server::Loop()
 {	
-	std::thread newThread(CheckShutdownKey, this);
-	newThread.detach();
 	while (1)
 	{
 		SOCKET acceptedSocket = Accept();
@@ -95,6 +95,8 @@ void Server::Loop()
 
 Server::Server()
 {
+	std::thread newThread(CheckShutdownKey, this);
+	newThread.detach();
 	CreateListenSocket();
 }
 

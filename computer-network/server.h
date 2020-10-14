@@ -1,6 +1,7 @@
 #pragma once
 #include "HandleResponse.h"
 #include "Configuration.h"
+#include "Log.h"
 #include <Windows.h>
 #include <thread>
 
