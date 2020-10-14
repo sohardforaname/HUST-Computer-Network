@@ -18,6 +18,27 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Configuration.h" />
+    <ClInclude Include="HandleRequest.h" />
+    <ClInclude Include="HandleResponse.h" />
+    <ClInclude Include="HttpGenerator.h" />
+    <ClInclude Include="HttpParser.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="Reader.h" />
+    <ClInclude Include="Server.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Configuration.cpp" />
+    <ClCompile Include="HandleRequest.cpp" />
+    <ClCompile Include="HandleResponse.cpp" />
+    <ClCompile Include="HttpGenerator.cpp" />
+    <ClCompile Include="HttpParser.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Reader.cpp" />
+    <ClCompile Include="Server.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -140,27 +161,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="configuration.h" />
-    <ClInclude Include="handlerequest.h" />
-    <ClInclude Include="handleresponse.h" />
-    <ClInclude Include="httpgenerator.h" />
-    <ClInclude Include="httpparser.h" />
-    <ClInclude Include="log.h" />
-    <ClInclude Include="Reader.h" />
-    <ClInclude Include="server.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="configuration.cpp" />
-    <ClCompile Include="handlerequest.cpp" />
-    <ClCompile Include="handleresponse.cpp" />
-    <ClCompile Include="httpgenerator.cpp" />
-    <ClCompile Include="httpparser.cpp" />
-    <ClCompile Include="log.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Reader.cpp" />
-    <ClCompile Include="server.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

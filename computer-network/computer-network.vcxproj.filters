@@ -15,39 +15,48 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="configuration.h">
+    <ClInclude Include="Configuration.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="httpgenerator.h">
+    <ClInclude Include="HandleRequest.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="httpparser.h">
+    <ClInclude Include="HandleResponse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpGenerator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpParser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Reader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="server.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="handlerequest.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="handleresponse.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="log.h">
+    <ClInclude Include="Server.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="configuration.cpp">
+    <ClCompile Include="Configuration.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="httpgenerator.cpp">
+    <ClCompile Include="HandleRequest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="httpparser.cpp">
+    <ClCompile Include="HandleResponse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpGenerator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -56,16 +65,7 @@
     <ClCompile Include="Reader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="server.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="handlerequest.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="handleresponse.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="log.cpp">
+    <ClCompile Include="Server.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

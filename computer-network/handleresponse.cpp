@@ -2,18 +2,25 @@
 
 std::unordered_map<std::string, std::string> HandleResponse::contentTypeMap =
 {
-	{"html","text/html"},
-	{"xml","text/xml"},
-	{"ico","image/x-icon"},
-	{"jpg","image/jpeg"}
+	{	"html", "text/html"			},
+	{	"xml",  "text/xml"			},
+	{	"ico",	"image/x-icon"		},
+	{	"jpg",  "image/jpeg"		},
+	{	"flac",	"audio/flac"		},
+	{	"js",	"text/javascript"	}
 };
 
 std::string HandleResponse::GetTypeFromFilePath(const char* filePath)
 {
 	const char* ptr = filePath;
-	while (*ptr != '.')
+	int pos = 0;
+	while (*ptr)
+	{
+		if (*ptr == '.')
+			pos = ptr - filePath;
 		++ptr;
-	return (*contentTypeMap.find(std::string(ptr + 1))).second;
+	}
+	return (*contentTypeMap.find(std::string(filePath + pos + 1))).second;
 }
 
 HandleResponse::HandleResponse(HandleRequest& request)

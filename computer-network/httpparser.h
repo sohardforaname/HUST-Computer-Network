@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <unordered_set>
 typedef std::unordered_map<std::string,
-	std::unordered_set<std::string>>::const_iterator Iter;
+	std::unordered_set<std::string>>::iterator Iter;
 
 class HttpParser
 {

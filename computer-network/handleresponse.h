@@ -1,6 +1,6 @@
 #pragma once
-#include "handlerequest.h"
-#include "httpgenerator.h"
+#include "HandleRequest.h"
+#include "HttpGenerator.h"
 #include "Reader.h"
 
 class HandleResponse

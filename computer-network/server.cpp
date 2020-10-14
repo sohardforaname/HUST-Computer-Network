@@ -13,6 +13,7 @@ void Server::CreateListenSocket()
 	serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	int port = atoi(configuration->GetValue("port").c_str());
 	std::string ip = configuration->GetValue("ip");
+	mainMenu = configuration->GetValue("mainmenu");
 	printf("Server run at: %s:%d\n\n", ip.c_str(), port);
 	SOCKADDR_IN sckaddrin;
 	memset(&sckaddrin, 0, sizeof(sckaddrin));
@@ -56,18 +57,33 @@ void Server::Handle(SOCKET clientSocket)
 	char* buffer = new char[1 << 10];
 	memset(buffer, 0, 1 << 10);
 	int receiveLength = recv(clientSocket, buffer, 1 << 10, 0);
-	printf("%d\n", WSAGetLastError());
+	//printf("%d\n", WSAGetLastError());
 	buffer[receiveLength] = 0;
 	printf("%s\n", buffer);
 	HandleRequest* request = new HandleRequest(buffer, clientSocket);
+	request->SetValue(
+		std::string("URI"), 
+		mainMenu + request->GetFirstValue("URI"), 
+		request->GetFirstValue("URI")
+	);
 	HandleResponse* response = new HandleResponse(*request);
 	delete request;
 	delete response;
 	delete[]buffer;
 }
 
+void CheckShutdownKey(Server* server)
+{
+	while (!(GetKeyState(VK_END) >> 7))
+		;
+	server->~Server();
+	exit(0);
+}
+
 void Server::Loop()
 {	
+	std::thread newThread(CheckShutdownKey, this);
+	newThread.detach();
 	while (1)
 	{
 		SOCKET acceptedSocket = Accept();
@@ -84,6 +100,7 @@ Server::Server()
 
 Server::~Server()
 {
+	printf("Shutdown server\n");
 	closesocket(serverSocket);
 	WSACleanup();
 }

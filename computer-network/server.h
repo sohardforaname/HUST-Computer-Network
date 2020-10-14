@@ -1,13 +1,15 @@
 #pragma once
-#include "handleresponse.h"
-#include "configuration.h"
+#include "HandleResponse.h"
+#include "Configuration.h"
+#include <Windows.h>
+#include <thread>
 
 class Server
 {
 private:
 	SOCKET serverSocket;
 	char* buffer;
-	std::string GetTypeFromFilePath(const char* filePath);
+	std::string mainMenu;
 
 private:
 	void CreateListenSocket();

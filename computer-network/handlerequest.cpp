@@ -18,14 +18,26 @@ HandleRequest::~HandleRequest()
 	delete parser;
 }
 
-std::unordered_set<std::string> HandleRequest::GetValueSet(const std::string& value)
+std::unordered_set<std::string> HandleRequest::GetValueSet(const std::string& key)
 {
-	return (*parser->Get(value)).second;
+	return (*parser->Get(key)).second;
 }
 
-std::string HandleRequest::GetFirstValue(const std::string& value)
+std::string HandleRequest::GetFirstValue(const std::string& key)
 {
-	return *GetValueSet(value).begin();
+	return *GetValueSet(key).begin();
+}
+
+void HandleRequest::SetValue
+(
+	const std::string& key, 
+	const std::string& newValue, 
+	const std::string& oriValue
+)
+{
+	auto& container = (*parser->Get(key)).second;
+	container.erase(oriValue);
+	container.insert(newValue);
 }
 
 SOCKET HandleRequest::GetRequestSocket()

@@ -1,4 +1,5 @@
-#include "server.h"
+#include "Server.h"
+
 int main()
 {
 	Server* server = new Server;
