@@ -11,17 +11,34 @@
 #include "SRReceiver.h"
 #include <iostream>
 
-int main()
+int main(int argc, char** argv)
 {
-	RdtSender* ps = new TCPSender();
-	RdtReceiver* pr = new TCPReceiver();
-	//pns->setRunMode(0);  //VERBOS模式
+	RdtSender* ps = NULL;
+	RdtReceiver* pr = NULL;
+	if (argv[1][0] == '0')
+	{
+		ps = new GBNSender();
+		pr = new GBNReceiver();
+	}
+	else if (argv[1][0] == '1')
+	{
+		ps = new SRSender();
+		pr = new SRReceiver();
+	}
+	else if (argv[1][0] == '2')
+	{
+		ps = new TCPSender();
+		pr = new TCPReceiver();
+	}
+	pns->setRunMode(0);  //VERBOS模式
 	pns->setRunMode(1);  //安静模式
 	pns->init();
 	pns->setRtdSender(ps);
 	pns->setRtdReceiver(pr);
-	pns->setInputFile("D:\\code\\vs\\C++_code\\computer-network\\Windows_VS2017\\input.txt");
-	pns->setOutputFile("D:\\code\\vs\\C++_code\\computer-network\\Windows_VS2017\\output.txt");
+	//pns->setInputFile("D:\\code\\vs\\C++_code\\computer-network\\Windows_VS2017\\input.txt");
+	//pns->setOutputFile("D:\\code\\vs\\C++_code\\computer-network\\Windows_VS2017\\outputTCP.txt");
+	pns->setInputFile(argv[2]);
+	pns->setOutputFile(argv[3]);
 
 	pns->start();
 

@@ -21,7 +21,7 @@ bool TCPSender::getWaitingState()
 
 bool TCPSender::send(const Message& message)
 {
-	if (nextSeq < base + windowSize / 2);
+	if (nextSeq < base + windowSize / 2)
 	{
 		waitingState = false;
 		window[curPkt].acknum = -1;
