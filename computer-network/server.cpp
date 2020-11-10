@@ -10,25 +10,27 @@ void Server::CreateListenSocket()
 	}
 	Configuration* configuration = new Configuration;
 	configuration->ReadConfigurationFile("/serverconfig");
-	int port = atoi(configuration->GetValue("port").c_str());
-	std::string ip = configuration->GetValue("ip");
 
 	serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	mainMenu = configuration->GetValue("mainmenu");
-	printf("Server run at: %s:%d\n\n", ip.c_str(), port);
+	printf(
+		"Server run at: %s:%d\n\n", 
+		configuration->GetValue("ip").c_str(), 
+		atoi(configuration->GetValue("port").c_str())
+	);
 
 	SOCKADDR_IN sckaddrin;
 	memset(&sckaddrin, 0, sizeof(sckaddrin));
 	sckaddrin.sin_family = AF_INET;
-	sckaddrin.sin_port = htons(port);
-	sckaddrin.sin_addr.s_addr = inet_addr(ip.c_str());
+	sckaddrin.sin_port = htons(atoi(configuration->GetValue("port").c_str()));
+	sckaddrin.sin_addr.s_addr = inet_addr(configuration->GetValue("ip").c_str());
 	if (bind(serverSocket, (sockaddr*)(&sckaddrin), sizeof(sckaddrin)) < 0)
 	{
 		printf("bind failed\n");
 		closesocket(serverSocket);
 		exit(-1);
 	}
-	if (listen(serverSocket, port) < 0)
+	if (listen(serverSocket, 10) < 0)
 	{
 		printf("listen error\n");
 		closesocket(serverSocket);
@@ -59,7 +61,12 @@ void Server::Handle(SOCKET clientSocket)
 	char* buffer = new char[1 << 10];
 	memset(buffer, 0, 1 << 10);
 	int receiveLength = recv(clientSocket, buffer, 1 << 10, 0);
-	//printf("%d\n", WSAGetLastError());
+	if (receiveLength < 0)
+	{
+		printf("recv error\n");
+		delete[]buffer;
+		return;
+	}
 	buffer[receiveLength] = 0;
 	printf("%s\n", buffer);
 	HandleRequest* request = new HandleRequest(buffer, clientSocket);
