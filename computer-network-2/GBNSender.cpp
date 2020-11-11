@@ -54,10 +54,11 @@ void GBNSender::receive(const Packet& ackpkt)
 		pns->stopTimer(SENDER, window[0].seqnum);
 		if (base != nextSeq)
 			pns->startTimer(SENDER, Configuration::TIME_OUT, window[pktSum].seqnum);
-		showWindow();
+		showWindow(0);
 		for (int i = 0; i < curPkt - pktSum; ++i)
 			window[i] = window[i + pktSum];
-		showWindow();
+		showWindow(1);
+		printf("发送方当前base: %d\n", base);
 		curPkt -= pktSum;
 	}
 }
@@ -71,9 +72,9 @@ void GBNSender::timeoutHandler(int seqNum)
 		pns->sendToNetworkLayer(RECEIVER, window[i]);
 }
 
-void GBNSender::showWindow()
+void GBNSender::showWindow(int op)
 {
-	printf("发送方：");
+	printf(!op ? "发送方移动前：\n" : "发送方移动后：\n");
 	printf("[\n");
 	for (int i = 0; i < windowSize / 2; ++i)
 		pUtils->printPacket("", window[i]);

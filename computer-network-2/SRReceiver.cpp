@@ -31,7 +31,6 @@ void SRReceiver::receive(const Packet& packet)
 			}
 		if (pos != -1)
 		{
-			printf("pos: %d\n", pos);
 			tag[pos] = 1;
 			window[pos] = packet;
 			lastAckPkt.acknum = window[0].seqnum;
@@ -49,13 +48,13 @@ void SRReceiver::receive(const Packet& packet)
 					memcpy(msg.data, window[i].payload, sizeof(window[i].payload));
 					pns->delivertoAppLayer(RECEIVER, msg);
 				}
-				showWindow();
+				showWindow(0);
 				for (int i = 0; i <= windowSize / 2 - maxAck; ++i)
 				{
 					window[i] = window[i + maxAck];
 					tag[i] = tag[i + maxAck];
 				}
-				showWindow();
+				showWindow(1);
 				for (int i = windowSize / 2 - maxAck + 1; i < windowSize / 2; ++i)
 					tag[i] = 0;
 				base = (base + maxAck) % windowSize;
@@ -74,9 +73,9 @@ void SRReceiver::receive(const Packet& packet)
 	pUtils->printPacket("接收方未正确收到报文:检验和错误", packet);
 }
 
-void SRReceiver::showWindow()
+void SRReceiver::showWindow(int op)
 {
-	puts("接收方：");
+	puts(!op ? "接收方移动前：" : "接收方移动后");
 	printf("[\n");
 	for (int i = 0; i < windowSize / 2; ++i)
 		printf("tag: %d packet ", tag[i]), pUtils->printPacket("", window[i]);

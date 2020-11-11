@@ -45,7 +45,6 @@ void TCPSender::receive(const Packet& packet)
 	if (curPkt && packet.checksum == pUtils->calculateCheckSum(packet))
 	{
 		pUtils->printPacket("发送方接收到ACK报文", packet);
-		printf("发送方当前base是：%d\n", base);
 		if (packet.acknum == window[0].seqnum)
 		{
 			++count;
@@ -55,9 +54,9 @@ void TCPSender::receive(const Packet& packet)
 				pns->sendToNetworkLayer(RECEIVER, window[0]);
 				printf("发送方冗余ACK %d *3", packet.acknum);
 				pUtils->printPacket("，快速重传当前窗口第一个报文", window[0]);
-				showWindow();
 				pns->startTimer(SENDER, Configuration::TIME_OUT, window[0].seqnum);
 				count = 0;
+				printf("发送方当前base是：%d\n", base);
 				return;
 			}
 		}
@@ -71,10 +70,11 @@ void TCPSender::receive(const Packet& packet)
 		pUtils->printPacket("发送方接收到ACK报文", packet);
 		if (base != nextSeq)
 			pns->startTimer(SENDER, Configuration::TIME_OUT, window[maxAck].seqnum);
-		showWindow();
+		showWindow(0);
 		for (int i = 0; i <= curPkt - maxAck; ++i)
 			window[i] = window[i + maxAck];
-		showWindow();
+		showWindow(1);
+		printf("发送方当前base是：%d\n", base);
 		curPkt -= maxAck;
 	}
 }
@@ -87,9 +87,9 @@ void TCPSender::timeoutHandler(int seqNum)
 	pns->sendToNetworkLayer(RECEIVER, window[0]);
 }
 
-void TCPSender::showWindow()
+void TCPSender::showWindow(int op)
 {
-	puts("发送方：");
+	puts(!op ? "发送方移动前：" : "发送方移动后");
 	printf("[\n");
 	for (int i = 0; i < windowSize / 2; ++i)
 		pUtils->printPacket("", window[i]);

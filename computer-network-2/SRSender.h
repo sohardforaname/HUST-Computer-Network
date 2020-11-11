@@ -15,7 +15,7 @@ public:
 	void receive(const Packet& ackpkt);
 	void timeoutHandler(int seqNum);
 	bool getWaitingState();
-	void ShowWindow();
+	void ShowWindow(int op);
 
 public:
 	SRSender();

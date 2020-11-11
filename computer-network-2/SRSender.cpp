@@ -64,13 +64,13 @@ void SRSender::receive(const Packet& ackpkt)
 				int maxAck = 0;
 				for (int i = 0; i < windowSize / 2 && tag[i]; ++i)
 					++maxAck;
-				ShowWindow();
+				ShowWindow(0);
 				for (int i = 0; i <= curPkt - maxAck; ++i)
 				{
 					window[i] = window[i + maxAck];
 					tag[i] = tag[i + maxAck];
 				}
-				ShowWindow();
+				ShowWindow(1);
 				for (int i = curPkt - maxAck; i < windowSize / 2; ++i)
 					tag[i] = 0;
 				curPkt -= maxAck;
@@ -102,9 +102,9 @@ void SRSender::timeoutHandler(int seqNum)
 	pns->startTimer(SENDER, Configuration::TIME_OUT, seqNum);
 }
 
-void SRSender::ShowWindow()
+void SRSender::ShowWindow(int op)
 {
-	printf("发送方：");
+	printf(!op ? "发送方移动前：\n" : "发送方移动后：\n");
 	printf("[\n");
 	for (int i = 0; i < windowSize / 2; ++i)
 		printf("tag: %d packet ", tag[i]), pUtils->printPacket("", window[i]);

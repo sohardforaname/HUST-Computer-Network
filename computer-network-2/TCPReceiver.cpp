@@ -6,7 +6,7 @@
 
 TCPReceiver::TCPReceiver() :nextSeq(1)
 {
-	lastAckPkt.acknum = 0;
+	lastAckPkt.acknum = 1;
 	lastAckPkt.seqnum = -1;
 	memset(lastAckPkt.payload, '.', Configuration::PAYLOAD_SIZE);
 	lastAckPkt.checksum = pUtils->calculateCheckSum(lastAckPkt);

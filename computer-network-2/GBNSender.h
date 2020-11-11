@@ -14,7 +14,7 @@ public:
 	void receive(const Packet& ackpkt);
 	void timeoutHandler(int seqNum);
 	bool getWaitingState();
-	void showWindow();
+	void showWindow(int op);
 
 public:
 	GBNSender();

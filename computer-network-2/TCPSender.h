@@ -15,7 +15,7 @@ public:
 	bool getWaitingState();
 	void receive(const Packet& packet);
 	void timeoutHandler(int seqNum);
-	void showWindow();
+	void showWindow(int op);
 
 public:
 	TCPSender();

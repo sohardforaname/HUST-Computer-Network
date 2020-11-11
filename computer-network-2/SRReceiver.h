@@ -11,7 +11,7 @@ private:
 
 public:
 	void receive(const Packet& packet);
-	void showWindow();
+	void showWindow(int op);
 
 public:
 	SRReceiver();

@@ -17,20 +17,23 @@ int main(int argc, char** argv)
 	RdtReceiver* pr = NULL;
 	if (argv[1][0] == '0')
 	{
+		printf("GBN协议\n");
 		ps = new GBNSender();
 		pr = new GBNReceiver();
 	}
 	else if (argv[1][0] == '1')
 	{
+		printf("SR协议\n");
 		ps = new SRSender();
 		pr = new SRReceiver();
 	}
 	else if (argv[1][0] == '2')
 	{
+		printf("TCP协议\n");
 		ps = new TCPSender();
 		pr = new TCPReceiver();
 	}
-	pns->setRunMode(0);  //VERBOS模式
+	//pns->setRunMode(0);  //VERBOS模式
 	pns->setRunMode(1);  //安静模式
 	pns->init();
 	pns->setRtdSender(ps);
