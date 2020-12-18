@@ -57,10 +57,22 @@ HttpParser::~HttpParser()
 {
 
 }
-Iter HttpParser::Get(const std::string& attribute)
+
+attrType HttpParser::Get(const std::string& attribute)
 {
-	return attributeMap.find(attribute);
+	auto it = attributeMap.find(attribute);
+	if (it == attributeMap.end())
+		return attrType();
+	return (*it).second;
 }
 
+void HttpParser::Update(const std::string& key, const std::string& newvalue, const std::string& orivalue)
+{
+	auto it = attributeMap.find(key);
+	if (it == attributeMap.end())
+		return;
+	(*it).second.erase(orivalue);
+	(*it).second.insert(newvalue);
+}
 
 #undef func

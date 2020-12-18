@@ -20,7 +20,7 @@ void Configuration::ReadConfigurationFile(const char* filePath)
 }
 std::string Configuration::GetValue(const std::string& key)
 {
-	return *(*configurationMap->Get(key)).second.begin();
+	return *(configurationMap->Get(key)).begin();
 }
 Configuration::Configuration()
 {

@@ -91,6 +91,8 @@ void CheckShutdownKey(Server* server)
 
 void Server::Loop()
 {	
+	std::thread newThread(CheckShutdownKey, this);
+	newThread.detach();
 	while (1)
 	{
 		SOCKET acceptedSocket = Accept();
@@ -102,8 +104,6 @@ void Server::Loop()
 
 Server::Server()
 {
-	std::thread newThread(CheckShutdownKey, this);
-	newThread.detach();
 	CreateListenSocket();
 }
 
